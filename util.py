@@ -12,7 +12,7 @@ import google.appengine.ext
 #pylint: disable=import-error
 from protorpc import messages
 
-import errors
+import jrg.errors as errors
 
 EPOCH = datetime(1970, 1, 1)
 
@@ -34,8 +34,8 @@ class JSONEncoder(json.JSONEncoder):
             }
         elif isinstance(o, messages.Enum):
             return o.name
-        else:
-            return super(JSONEncoder, self).default(o)
+
+        return super(JSONEncoder, self).default(o)
 
 def to_json(ooo):
     return JSONEncoder(indent=2).encode(ooo)
@@ -44,6 +44,12 @@ def confirm_admin():
     if not users.is_current_user_admin():
         raise errors.NotAdmin
 
+def is_prod():
+    return os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/')
+
+def is_dev():
+    return not is_prod()
+
 def confirm_dev():
-    if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/'):
+    if not is_dev():
         raise errors.DevModeOnly
