@@ -22,8 +22,10 @@ class JSONEncoder(json.JSONEncoder):
 
         if isinstance(o, ndb.Model):
             return o.to_dict()
-        elif isinstance(o, (datetime, date, time)):
+        elif isinstance(o, (datetime, time)):
             return int((o - EPOCH).total_seconds() * 1000)
+        elif isinstance(o, date):
+            return str(o)
         elif isinstance(o, google.appengine.ext.ndb.key.Key):
             return o.id()
         elif isinstance(o, google.appengine.api.users.User):
