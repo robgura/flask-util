@@ -55,3 +55,10 @@ def is_dev():
 def confirm_dev():
     if not is_dev():
         raise errors.DevModeOnly
+
+def ensure_key(maybe_key):
+    if isinstance(maybe_key, google.appengine.ext.ndb.key.Key):
+        return maybe_key
+
+    # since this isn't a key it is probably a ndb model so it probably has a "key" attribute
+    return maybe_key.key
