@@ -18,6 +18,9 @@ class Req(object):
     def is_put(self):
         return self.req.method == 'PUT'
 
+    def get_form(self):
+        return self.req.form
+
     def get_json(self):
         # cache self.json
         if self.json != None:
