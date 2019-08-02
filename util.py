@@ -39,7 +39,10 @@ class JSONEncoder(json.JSONEncoder):
 
         return super(JSONEncoder, self).default(o)
 
-def to_json(ooo):
+def to_json(ooo, mini=False):
+    if mini:
+        return JSONEncoder(indent=None).encode(ooo)
+
     return JSONEncoder(indent=2).encode(ooo)
 
 def confirm_admin():
