@@ -23,7 +23,7 @@ class Req(object):
 
     def get_json(self):
         # cache self.json
-        if self.json != None:
+        if self.json is not None:
             return self.json
 
         self.json = self.req.get_json(force=True)
