@@ -29,3 +29,9 @@ class Duplicate(Exception):
     def __init__(self, tt):
         super(Duplicate, self).__init__()
         self.type = tt
+
+class Invalid(Exception):
+    def __init__(self, what, why):
+        super(Invalid, self).__init__()
+        self.what = what
+        self.why = why
